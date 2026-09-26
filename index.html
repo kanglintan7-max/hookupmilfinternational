@@ -3,178 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>International Dating Services Platform</title>
+    <title>Amara — Meet People, Genuinely</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="bg-overlay"></div>
-    <div id="vip-timer-display" class="vip-badge" style="display: none;">FREE VIP: 10:00</div>
+    <div id="tier-badge" class="tier-badge" style="display:none;"></div>
+
+    <select id="lang-switcher" class="lang-switcher" onchange="applyLanguage(this.value)">
+        <option value="en">🇬🇧 English</option>
+        <option value="tl">🇵🇭 Tagalog</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="ar">🇸🇦 العربية</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+    </select>
 
     <!-- SCREEN 1: LOGIN -->
     <div id="screen-auth" class="screen active">
         <div class="box">
-            <h2>Dating Services Login</h2>
-            <input type="email" id="login-email" placeholder="Email Address">
-            <input type="password" id="login-pass" placeholder="Password">
-            <button onclick="handleLogin()">Sign In</button>
-            <p style="margin-top: 15px; font-size: 14px; color: #ccc;">No account? <a href="#" onclick="showScreen('screen-register')" style="color: #ff4757;">Register here</a></p>
+            <h2 data-i18n="auth_title">Welcome back</h2>
+            <p class="subtitle" data-i18n="auth_subtitle">Sign in to continue to your account.</p>
+            <input type="email" id="login-email" data-i18n-placeholder="login_email_ph" placeholder="Email Address">
+            <input type="password" id="login-pass" data-i18n-placeholder="login_pass_ph" placeholder="Password">
+            <button onclick="handleLogin()" data-i18n="signin_btn">Sign In</button>
+            <p class="fine-print"><span data-i18n="no_account">No account?</span> <a href="#" onclick="showScreen('screen-register')" data-i18n="create_one">Create one</a></p>
         </div>
     </div>
 
-    <!-- SCREEN 2: STEP-BY-STEP REGISTRATION -->
+    <!-- SCREEN 2: REGISTRATION -->
     <div id="screen-register" class="screen">
         <div class="box" style="max-width: 500px;">
-            <h2>Create Profile Account</h2>
-            <input type="text" id="reg-name" placeholder="Full Name">
-            <input type="email" id="reg-email" placeholder="Email Address">
-            <input type="tel" id="reg-phone" placeholder="Phone Number">
+            <h2 data-i18n="register_title">Create your profile</h2>
+            <p class="subtitle" data-i18n="register_subtitle">Tell us a bit about yourself to get started.</p>
+            <input type="text" id="reg-name" data-i18n-placeholder="reg_name_ph" placeholder="Full Name">
+            <input type="email" id="reg-email" data-i18n-placeholder="reg_email_ph" placeholder="Email Address">
+            <input type="tel" id="reg-phone" data-i18n-placeholder="reg_phone_ph" placeholder="Phone Number">
             <input type="date" id="reg-dob" placeholder="Birthdate">
-            <input type="text" id="reg-address" placeholder="Address">
             <select id="reg-sex">
-                <option value="">Select Gender</option>
-                <option value="Male">Male (45-60 Years Old Pool)</option>
-                <option value="Female">Female (21-30 Years Old Pool)</option>
+                <option value="" data-i18n="reg_gender_default">Select Gender</option>
+                <option value="Male" data-i18n="reg_gender_male">Male</option>
+                <option value="Female" data-i18n="reg_gender_female">Female</option>
+                <option value="Nonbinary" data-i18n="reg_gender_nonbinary">Non-binary</option>
+                <option value="Prefer not to say" data-i18n="reg_gender_prefer">Prefer not to say</option>
             </select>
-            <button onclick="processRegistrationData()">Continue to Verification</button>
+            <button onclick="processRegistrationData()" data-i18n="continue_btn">Continue</button>
         </div>
     </div>
 
-    <!-- SCREEN 3: NATURAL LOADING SCREEN -->
-    <div id="screen-loading" class="screen">
+    <!-- SCREEN 3: EMAIL VERIFICATION -->
+    <div id="screen-verify" class="screen">
         <div class="box">
-            <h2 id="loading-text">Validating User Information...</h2>
-            <div class="loader"></div>
-            <p style="color: #aaa; font-size: 14px;">Please wait while we secure your session pipeline.</p>
-        </div>
-    </div>
-
-    <!-- SCREEN 4: RANDOM 4-DIGIT OTP SECURITY LAYER -->
-    <div id="screen-otp" class="screen">
-        <div class="box">
-            <h2>Security Verification</h2>
-            <p>A random security loop system code has been generated. Confirm the token to bind this terminal connection:</p>
+            <h2 data-i18n="verify_title">Verify your email</h2>
+            <p class="subtitle" data-i18n="verify_subtitle">We sent a 4-digit code to your email. For this demo, it's shown below — enter it to continue.</p>
             <h1 id="generated-otp-display">0000</h1>
-            <input type="text" id="user-otp-input" placeholder="Enter the 4-Digit Code above" maxlength="4" style="text-align: center; font-size: 20px;">
-            <button onclick="verifyOTPCode()">Verify Code</button>
+            <input type="text" id="user-otp-input" data-i18n-placeholder="otp_ph" placeholder="Enter the 4-digit code" maxlength="4" style="text-align: center; font-size: 20px;">
+            <button onclick="verifyOTPCode()" data-i18n="verify_btn">Verify</button>
         </div>
     </div>
 
-    <!-- SCREEN 5: CONDITIONAL PHOTO UPLOAD -->
-    <div id="screen-upload" class="screen">
+    <!-- SCREEN 4: OPTIONAL PROFILE PHOTO -->
+    <div id="screen-photo" class="screen">
         <div class="box">
-            <h2>Identity Image Binding</h2>
-            <p id="upload-instruction" style="font-size: 14px; margin-bottom: 15px; color: #ffcc00;"></p>
+            <h2 data-i18n="photo_title">Add a profile photo</h2>
+            <p class="subtitle" data-i18n="photo_subtitle">Optional — you can always add or change this later in your settings.</p>
             <input type="file" id="photo-file" accept="image/*">
-            <button onclick="startPhotoUploadTimer()">Upload Image Proof</button>
+            <button onclick="finishProfileSetup()" data-i18n="save_continue_btn">Save & Continue</button>
+            <p class="fine-print"><a href="#" onclick="finishProfileSetup()" data-i18n="skip_for_now">Skip for now</a></p>
         </div>
     </div>
 
-    <!-- SCREEN 6: MAIN LOBBY WITH INTERNATIONAL CHANNELS -->
+    <!-- SCREEN 5: LOBBY -->
     <div id="screen-lobby" class="screen">
         <div class="lobby-container">
-            <h2>Global Live Lobby - International Channels</h2>
-            <p style="margin-bottom: 20px;">Select your routing platform region to review secure online match connections.</p>
-            <div class="channels-grid">
-                <div class="channel-card" onclick="enterChannel('ASIAN')"><h3>ASIAN Channel</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('EUROPE')"><h3>EUROPE Channel</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('North America')"><h3>North America</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('South America')"><h3>South America</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('Africa')"><h3>Africa</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('Australia / Oceania')"><h3>Australia / Oceania</h3><p>Active Users Online</p></div>
-                <div class="channel-card" onclick="enterChannel('Antarctica')"><h3>Antarctica</h3><p>Isolated Station Links</p></div>
+            <div class="lobby-header">
+                <div>
+                    <h2><span data-i18n="welcome_label">Welcome,</span> <span id="lobby-username">friend</span></h2>
+                    <p class="subtitle" id="lobby-tier-line">Free plan</p>
+                </div>
+                <button class="btn-secondary" onclick="showScreen('screen-plans')" data-i18n="manage_plan_btn">Manage Plan</button>
             </div>
+
+            <h3 class="section-title" data-i18n="regional_channels_title">Regional Channels</h3>
+            <p class="section-hint" data-i18n="regional_channels_hint">Join a channel to meet people from that region.</p>
+            <div class="channels-grid" id="channels-grid"></div>
+
+            <h3 class="section-title" data-i18n="private_rooms_title">Private Rooms</h3>
+            <p class="section-hint" data-i18n="private_rooms_hint">Smaller, focused spaces for closer conversations. Availability depends on your plan.</p>
+            <div class="channels-grid" id="rooms-grid"></div>
         </div>
     </div>
 
-    <!-- SCREEN 6B: DYNAMIC CHANNEL PROFILES VIEW (Dito lalabas ang 500 simulated users) -->
+    <!-- SCREEN 5B: CHANNEL VIEW -->
     <div id="screen-channel-view" class="screen">
         <div class="lobby-container">
-            <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 20px;">
-                <button onclick="showScreen('screen-lobby')" style="width:auto; padding:10px 20px; margin:0;">← Back to Lobby</button>
-                <h2 id="current-channel-title" style="margin:0;">Channel</h2>
+            <div class="view-header">
+                <button class="btn-secondary btn-back" onclick="showScreen('screen-lobby')" data-i18n="back_to_lobby">← Back to Lobby</button>
+                <h2 id="current-channel-title">Channel</h2>
             </div>
-            <div id="profiles-display-grid" class="profiles-grid"></div>
+            <div id="channel-empty-state" class="empty-state">
+                <p data-i18n="channel_empty">No members here yet — be the first to say hello when this channel opens up.</p>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 7: PREMIUM PLANS -->
+    <!-- SCREEN 5C: ROOM VIEW -->
+    <div id="screen-room-view" class="screen">
+        <div class="lobby-container">
+            <div class="view-header">
+                <button class="btn-secondary btn-back" onclick="showScreen('screen-lobby')" data-i18n="back_to_lobby">← Back to Lobby</button>
+                <h2 id="current-room-title">Room</h2>
+            </div>
+            <div id="room-content" class="empty-state"></div>
+        </div>
+    </div>
+
+    <!-- SCREEN 6: PLANS -->
     <div id="screen-plans" class="screen">
-        <h2 style="margin-bottom: 10px;">Your 10-Minute Free Trial Has Expired</h2>
-        <p style="margin-bottom: 30px; color: #ccc;">Select a validation package parameters profile below to retain communications.</p>
-        <div class="plans-grid">
-            
-            <div class="plan-card normal">
-                <h3>Normal Tier</h3>
-                <div class="price">€0.00</div>
-                <ul class="features-list">
-                    <li>• Access to 1 Channel only</li>
-                    <li>• Profiles are completely blurred</li>
-                    <li>• Zero media access allowed</li>
-                </ul>
-                <button onclick="connectToLiveAgent('Normal Tier')">Keep Free Restrictions</button>
-            </div>
-
-            <div class="plan-card silver">
-                <h3>Silver Card</h3>
-                <div class="price">€249.99</div>
-                <ul class="features-list">
-                    <li>• Access to 5 Global Channels</li>
-                    <li>• View unblurred photos</li>
-                    <li>• Chat messaging enabled (No Calls)</li>
-                    <li>• Includes 1-Month Silver Tracking ID</li>
-                    <li>• 70% Refund Policy Protected</li>
-                </ul>
-                <button onclick="connectToLiveAgent('Silver Card')">Acquire Silver Card</button>
-            </div>
-
-            <div class="plan-card gold">
-                <h3>Gold Card</h3>
-                <div class="price">€659.99</div>
-                <ul class="features-list">
-                    <li>• Full access to all channels</li>
-                    <li>• Voice Calls & Text enabled</li>
-                    <li>• 2 Months ID Validation Frame</li>
-                    <li>• 22-Hour Complimentary Hotel Voucher</li>
-                    <li>• 70% Return Funds Guarantee</li>
-                </ul>
-                <button onclick="connectToLiveAgent('Gold Card')">Acquire Gold Card</button>
-            </div>
-
-            <div class="plan-card platinum">
-                <h3>Platinum Card</h3>
-                <div class="price">€1299.99</div>
-                <ul class="features-list">
-                    <li>• Full Unrestricted Global Access</li>
-                    <li>• Secure Voice/Video Calling Enabled</li>
-                    <li>• 5 Months Tracking ID Validity</li>
-                    <li>• Free 3 Days & 2 Nights Hotel Booking</li>
-                    <li>• 70% Guaranteed Escrow Cashback</li>
-                </ul>
-                <button onclick="connectToLiveAgent('Platinum Card')">Acquire Platinum Card</button>
-            </div>
-
-        </div>
+        <h2 style="margin-bottom: 10px;" data-i18n="plans_title">Choose your plan</h2>
+        <p class="subtitle" style="margin-bottom: 30px;" data-i18n="plans_subtitle">Upgrade anytime. No hidden fees, cancel whenever you like.</p>
+        <div class="plans-grid" id="plans-grid"></div>
+        <button class="btn-secondary" style="max-width:300px;margin-top:30px;" onclick="showScreen('screen-lobby')" data-i18n="back_to_lobby_btn">Back to Lobby</button>
     </div>
 
-    <!-- SCREEN 8: LIVE AGENT GATEWAY -->
-    <div id="screen-agent" class="screen">
+    <!-- SCREEN 7: PLAN CONFIRMATION -->
+    <div id="screen-account" class="screen">
         <div class="box" style="max-width: 500px;">
-            <h2 style="color: #2ecc71;">🔒 Secure Verification Routing</h2>
-            <div class="agent-badge">
-                <p><strong>Escrow Department:</strong> Dating Services</p>
-                <p id="selected-plan-notice">Selected: Platinum Card Package</p>
+            <h2 data-i18n="account_title">You're all set 🎉</h2>
+            <div class="account-badge">
+                <p><strong data-i18n="plan_label">Plan:</strong> <span id="selected-plan-notice">—</span></p>
+                <p><strong data-i18n="membership_id_label">Membership ID:</strong> <span id="membership-id-display">—</span></p>
             </div>
-            <p style="font-size: 14px; line-height: 1.6; text-align: left; color: #ddd;">
-                Ang lahat ng proseso para sa pag-verify ng iyong biometric card, physical match synchronization, hotel allocations, at insurance processing ay pinamamahalaan ng ating <strong>Dating Services Live Agent desk</strong>.<br><br>
-                Upang makumpleto ang financial configuration at makuha ang mga detalye ng iyong physical meetup at tracking system data, mangyaring makipag-ugnayan sa backend desk operator gamit ang iyong reference token.
+            <p class="subtitle" style="text-align:left;" data-i18n="account_subtitle">
+                Your membership ID identifies your plan across the app. You can view or change your plan anytime from your account settings.
             </p>
-            <h3 style="margin-top: 20px; color: #ff4757;" id="agent-token">REF-TOKEN: DS-4091A</h3>
-            <button onclick="alert('Connecting to Dating Services live matrix operator...')">Initialize Agent Session Terminal</button>
+            <button onclick="showScreen('screen-lobby')" data-i18n="continue_lobby_btn">Continue to Lobby</button>
         </div>
     </div>
 
-    <!-- Pag-link sa external script logic -->
     <script src="script.js"></script>
 </body>
 </html>
