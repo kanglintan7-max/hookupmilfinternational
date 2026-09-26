@@ -1,0 +1,305 @@
+:root {
+    --primary: #ff4757;
+    --dark: #1e1e24;
+    --glass: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body { 
+    background: #09070f; 
+    color: #fff; 
+    min-height: 100vh; 
+    overflow-x: hidden; 
+}
+
+/* Fullscreen Background Wallpaper/Video Placeholder */
+.bg-overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: -2;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.9)), 
+                url('https://unsplash.com') no-repeat center center/cover;
+}
+
+.screen { 
+    display: none; 
+    padding: 20px; 
+    min-height: 100vh; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.screen.active { 
+    display: flex; 
+}
+
+/* Glassmorphic Form Boxes */
+.box { 
+    background: var(--glass); 
+    backdrop-filter: blur(20px); 
+    border: 1px solid var(--border); 
+    padding: 40px 35px; 
+    border-radius: 16px; 
+    width: 100%; 
+    max-width: 450px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+    text-align: center; 
+}
+
+h2 { 
+    margin-bottom: 20px; 
+    font-weight: 600; 
+    letter-spacing: 0.5px;
+}
+
+#generated-otp-display {
+    letter-spacing: 12px; 
+    color: #2ecc71; 
+    margin: 25px 0; 
+    font-size: 42px;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+input, select { 
+    width: 100%; 
+    padding: 14px; 
+    margin: 10px 0; 
+    border-radius: 8px; 
+    border: 1px solid var(--border); 
+    background: rgba(0,0,0,0.4); 
+    color: #fff; 
+    outline: none; 
+    font-size: 15px;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+}
+
+button { 
+    width: 100%; 
+    padding: 14px; 
+    background: linear-gradient(45deg, #ff4757, #ff6b81); 
+    border: none; 
+    border-radius: 8px; 
+    color: white; 
+    font-weight: bold; 
+    cursor: pointer; 
+    margin-top: 15px; 
+    transition: 0.3s ease; 
+    font-size: 16px;
+}
+
+button:hover { 
+    opacity: 0.95; 
+    transform: translateY(-2px); 
+}
+
+/* Loading Spinner Framework */
+.loader { 
+    border: 4px solid rgba(255,255,255,0.05); 
+    border-left-color: var(--primary); 
+    border-radius: 50%; 
+    width: 55px; 
+    height: 55px; 
+    animation: spin 1s linear infinite; 
+    margin: 25px auto; 
+}
+
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+/* Lobby Interface Grid */
+.lobby-container { 
+    width: 100%; 
+    max-width: 1200px; 
+    text-align: center; 
+}
+
+.channels-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+    gap: 20px; 
+    margin-top: 35px; 
+}
+
+.channel-card { 
+    background: rgba(255,255,255,0.03); 
+    border: 1px solid var(--border); 
+    padding: 30px 20px; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.channel-card:hover { 
+    background: var(--primary); 
+    transform: scale(1.04); 
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+}
+
+/* Top Floating VIP Floating Bar */
+.vip-badge { 
+    position: fixed; 
+    top: 25px; 
+    right: 25px; 
+    background: linear-gradient(135deg, #ffa500, #ff8c00); 
+    color: #000; 
+    padding: 12px 24px; 
+    font-weight: bold; 
+    border-radius: 30px; 
+    box-shadow: 0 5px 20px rgba(255,165,0,0.4); 
+    z-index: 100;
+}
+
+/* Dynamic Pricing Cards */
+.plans-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+    gap: 20px; 
+    width: 100%; 
+    max-width: 1150px; 
+    margin-top: 30px; 
+}
+
+.plan-card { 
+    background: rgba(0, 0, 0, 0.45); 
+    border: 2px solid var(--border); 
+    padding: 35px 22px; 
+    border-radius: 16px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.plan-card.silver { border-color: #bdc3c7; }
+.plan-card.gold { border-color: #f1c40f; }
+.plan-card.platinum { border-color: #9b59b6; }
+
+.price { 
+    font-size: 32px; 
+    font-weight: bold; 
+    margin: 20px 0; 
+    color: #fff; 
+}
+
+.features-list { 
+    text-align: left; 
+    margin: 20px 0; 
+    font-size: 14px; 
+    list-style: none; 
+    line-height: 1.8;
+}
+
+.agent-badge {
+    border-left: 4px solid var(--primary); 
+    padding: 12px; 
+    text-align: left; 
+    background: rgba(0,0,0,0.3); 
+    margin-bottom: 25px;
+    border-radius: 0 8px 8px 0;
+}
+:root {
+    --primary: #ff4757;
+    --dark: #1e1e24;
+    --glass: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background: #09070f; color: #fff; min-height: 100vh; overflow-x: hidden; }
+
+.bg-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.9)), 
+                url('https://unsplash.com') no-repeat center center/cover;
+}
+
+.screen { display: none; padding: 20px; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; }
+.screen.active { display: flex; }
+
+.box { 
+    background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); 
+    padding: 40px 35px; border-radius: 16px; width: 100%; max-width: 450px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: center; 
+}
+
+h2 { margin-bottom: 20px; font-weight: 600; letter-spacing: 0.5px; }
+
+#generated-otp-display {
+    letter-spacing: 12px; color: #2ecc71; margin: 25px 0; font-size: 42px;
+    background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px;
+}
+
+input, select { 
+    width: 100%; padding: 14px; margin: 10px 0; border-radius: 8px; 
+    border: 1px solid var(--border); background: rgba(0,0,0,0.4); color: #fff; outline: none; font-size: 15px;
+}
+input:focus, select:focus { border-color: var(--primary); }
+
+button { 
+    width: 100%; padding: 14px; background: linear-gradient(45deg, #ff4757, #ff6b81); 
+    border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s ease; font-size: 16px;
+}
+button:hover { opacity: 0.95; transform: translateY(-2px); }
+
+.loader { 
+    border: 4px solid rgba(255,255,255,0.05); border-left-color: var(--primary); 
+    border-radius: 50%; width: 55px; height: 55px; animation: spin 1s linear infinite; margin: 25px auto; 
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.lobby-container { width: 100%; max-width: 1200px; text-align: center; padding: 40px 0; }
+.channels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 35px; }
+.channel-card { 
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 30px 20px; border-radius: 12px; cursor: pointer; 
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+.channel-card:hover { background: var(--primary); transform: scale(1.04); box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3); }
+
+/* GRID PARA SA 500 USER PROFILES */
+.profiles-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; text-align: left;
+}
+.profile-card {
+    background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; padding: 15px; text-align: center;
+    backdrop-filter: blur(5px); transition: 0.2s;
+}
+.profile-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+.profile-card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border); margin-bottom: 12px; }
+.profile-card.blurred img { filter: blur(8px); } /* Gagamitin kapag expired na ang VIP */
+.profile-card h4 { font-size: 16px; margin-bottom: 5px; }
+.profile-card p { font-size: 13px; color: #aaa; margin-bottom: 10px; }
+
+.vip-badge { 
+    position: fixed; top: 25px; right: 25px; background: linear-gradient(135deg, #ffa500, #ff8c00); 
+    color: #000; padding: 12px 24px; font-weight: bold; border-radius: 30px; box-shadow: 0 5px 20px rgba(255,165,0,0.4); z-index: 100;
+}
+
+.plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; width: 100%; max-width: 1150px; margin-top: 30px; }
+.plan-card { 
+    background: rgba(0, 0, 0, 0.45); border: 2px solid var(--border); padding: 35px 22px; 
+    border-radius: 16px; display: flex; flex-direction: column; justify-content: space-between; 
+}
+.plan-card.silver { border-color: #bdc3c7; }
+.plan-card.gold { border-color: #f1c40f; }
+.plan-card.platinum { border-color: #9b59b6; }
+.price { font-size: 32px; font-weight: bold; margin: 20px 0; color: #fff; }
+.features-list { text-align: left; margin: 20px 0; font-size: 14px; list-style: none; line-height: 1.8; }
+.agent-badge { border-left: 4px solid var(--primary); padding: 12px; text-align: left; background: rgba(0,0,0,0.3); margin-bottom: 25px; border-radius: 0 8px 8px 0; }
+}
